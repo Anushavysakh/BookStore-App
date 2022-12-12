@@ -1,0 +1,110 @@
+{
+  "Books": [
+    {
+      "id": "1",
+      "image": "https://m.media-amazon.com/images/P/0072226803.01._SCLZZZZZZZ_SX500_.jpg",
+      "title": "The Complete Reference C++",
+      "author": "Herbert Schildt",
+      "price": 1400
+    },
+    {
+      "id": "2",
+      "image": "https://m.media-amazon.com/images/I/51MieO3H8pL._SX308_BO1,204,203,200_.jpg",
+      "title": "The Colony",
+      "author": "Audrey Magee",
+      "price": 444
+    },
+    {
+      "id": "3",
+      "image": "https://m.media-amazon.com/images/I/817PQ-kvkZL._AC_UY327_FMwebp_QL65_.jpg",
+      "title": "Chats with the Dead",
+      "author": "Shehan Karunatilaka",
+      "price": 399
+    },
+    {
+      "id": "4",
+      "image": "https://m.media-amazon.com/images/I/71VFV2QqcTL._AC_UL480_FMwebp_QL65_.jpg",
+      "title": "Treacle Walker",
+      "author": "Alan Garner",
+      "price": 300
+    },
+    {
+      "id": "5",
+      "image": "assets/books-5.jpg",
+      "title": "Glory",
+      "author": "Noviolet",
+      "price": 400
+    },
+    {
+      "id": "7",
+      "image": "https://m.media-amazon.com/images/I/71oGN9SPqfL._AC_UY327_FMwebp_QL65_.jpg",
+      "title": "Chinaman",
+      "author": "Pradeep mathew",
+      "price": 600
+    },
+    {
+      "id": "8",
+      "image": "https://m.media-amazon.com/images/I/81gUZu+VSOL._AC_UY327_FMwebp_QL65_.jpg",
+      "title": "Small Things Like These",
+      "author": "Claire",
+      "price": 850
+    },
+    {
+      "id": "9",
+      "image": "assets/books-8.jpg",
+      "title": "Rohzin",
+      "author": "Rahman Abbas",
+      "price": 448
+    },
+    {
+      "id": "10",
+      "image": "https://m.media-amazon.com/images/I/61A-DyENzdL._AC_UL480_FMwebp_QL65_.jpg",
+      "title": "Oh William",
+      "author": "Elizabeth",
+      "price": 410
+    },
+    {
+      "id": "11",
+      "image": "https://m.media-amazon.com/images/I/614XfRfsKKL._AC_UY327_FMwebp_QL65_.jpg",
+      "title": "Nights of Plague",
+      "author": "Orhan pamuk",
+      "price": 525
+    },
+    {
+      "id": "12",
+      "image": "https://m.media-amazon.com/images/I/71VvP7BZEFL._AC_UY327_FMwebp_QL65_.jpg",
+      "title": "The Birth Lottery and Other Surprises",
+      "author": "Shehan Karunatilaka",
+      "price": 880
+    },
+    {
+      "id": "13",
+      "image": "https://m.media-amazon.com/images/I/81pqPHco--L._AC_UY327_FMwebp_QL65_.jpg",
+      "title": "The Trees",
+      "author": "Percival Everett",
+      "price": 839
+    },
+
+    {
+      "id": "14",
+      "image": "assets/books-13.jpg",
+      "title": "Nightcrawling",
+      "author": "Leila Mottley",
+      "price": 690
+    },
+    {
+      "id": "15",
+      "image": "https://m.media-amazon.com/images/I/41Ge8wZ+yCL._SX323_BO1,204,203,200_.jpg",
+      "title": "After Sappho",
+      "author": "Selby Wynn Schwartz",
+      "price": 358
+    },
+    {
+      "id": "16",
+      "image": "https://m.media-amazon.com/images/I/81jZlevGcoL._AC_UY327_FMwebp_QL65_.jpg",
+      "title": "Trust",
+      "author": "Herman Diaz",
+      "price": 518
+    }
+  ]
+}

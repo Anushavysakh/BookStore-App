@@ -1,8 +1,17 @@
+import 'package:book_store_app/screens/cart_screen.dart';
+import 'package:book_store_app/screens/search_screen.dart';
+import 'package:book_store_app/widgets/badge.dart';
 import 'package:flutter/material.dart';
-
-import '../model/book.dart';
+import 'package:provider/provider.dart';
 import '../providers/books.dart';
-import '../widgets/book_item.dart';
+import '../providers/cart.dart';
+import '../widgets/app_drawer.dart';
+import '../widgets/books_grid.dart';
+
+enum FilterOptions {
+  WishList,
+  All,
+}
 
 class ProductOverviewScreen extends StatefulWidget {
   const ProductOverviewScreen({Key? key}) : super(key: key);
@@ -12,102 +21,38 @@ class ProductOverviewScreen extends StatefulWidget {
 }
 
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
-  List<Book> loadedBooks = [
-    Book(
-        id: "1",
-        image: "assets/book_2.jpg",
-        title: "Building Planning",
-        author: "S.S.Bhavikatti",
-        price: 1400),
-    Book(
-        id: "2",
-        image: "assets/books-2.jpg",
-        title: "The Colony",
-        author: "Audrey Magee",
-        price: 444),
-    Book(
-        id: "3",
-        image: "assets/book-3.jpg",
-        title: "Chats with the Dead",
-        author: "Shehan Karunatilaka",
-        price: 399),
-    Book(
-        id: "4",
-        image: "assets/books-4.jpg",
-        title: "Treacle Walker",
-        author: "Alan Garner",
-        price: 300),
-    Book(
-        id: "5",
-        image: "assets/books-5.jpg",
-        title: "Glory",
-        author: "Noviolet",
-        price: 400),
-    Book(
-        id: "7",
-        image: "assets/books-6.jpg",
-        title: "Chinaman",
-        author: "Pradeep mathew",
-        price: 600),
-    Book(
-        id: "8",
-        image: "assets/books-7.jpg",
-        title: "Small Things Like These",
-        author: "Claire",
-        price: 850),
-    Book(
-        id: "9",
-        image: "assets/books-8.jpg",
-        title: "Rohzin",
-        author: "Rahman Abbas",
-        price: 448),
-    Book(
-        id: "10",
-        image: "assets/books-9.jpg",
-        title: "Oh William",
-        author: "Elizabeth",
-        price: 410),
-    Book(
-        id: "11",
-        image: "assets/books-10.jpg",
-        title: "Nights of Plague",
-        author: "Orhan pamuk",
-        price: 525),
-    Book(
-        id: "12",
-        image: "assets/books-11.jpg",
-        title: "The Birth Lottery and Other Surprises",
-        author: "Shehan Karunatilaka",
-        price: 880),
-    Book(
-        id: "13",
-        image: "assets/books-12.jpg",
-        title: "The Trees",
-        author: "Percival Everett",
-        price: 839),
-    Book(
-        id: "14",
-        image: "assets/books-13.jpg",
-        title: "Nightcrawling",
-        author: "Leila Mottley",
-        price: 690),
-    Book(
-        id: "15",
-        image: "assets/books-14.jpg",
-        title: "After Sappho",
-        author: "Selby Wynn Schwartz",
-        price: 358),
-    Book(
-        id: "16",
-        image: "assets/books-15.jpg",
-        title: "Trust",
-        author: "Hernan Diaz",
-        price: 518)
-  ];
+  var _showOnlyWishlist = false;
+  var _isInit = true;
+  var _isLoading = false;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+  void didChangeDependencies() {
+      if (_isInit) {
+        setState(() {
+          _isLoading = true;
+        });
+        Provider.of<Books>(context).fetchAndSetProducts().then(
+              (_) {
+            if(mounted){
+              setState(() {
+                _isLoading = false;
+              });}
+          },
+        );
+      }
+      _isInit = false;
+      super.didChangeDependencies();
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple.shade200,
+      drawer: AppDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.purple.shade200,
         title: Column(
@@ -121,7 +66,10 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                     Theme.of(context).colorScheme.onSecondaryContainer,
                 backgroundColor: Colors.purple.shade400,
               ).copyWith(elevation: MaterialStatePropertyAll(5)),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(SearchScreen.routeName);
+              },
               child: Row(
                 children: const [
                   Icon(Icons.search),
@@ -138,26 +86,43 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           ],
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart))
+          // PopupMenuButton(
+          //     onSelected: (FilterOptions selectedValue) {
+          //       setState(() {
+          //         if(selectedValue == FilterOptions.WishList){
+          //           _showOnlyWishlist = true;
+          //         } else {
+          //           _showOnlyWishlist = false;
+          //         }
+          //       });
+          //
+          //       print(selectedValue);
+          //     },
+          //     icon: Icon(Icons.more_vert),
+          //     itemBuilder: (context) => [
+          //           PopupMenuItem(
+          //             child: Text('Wishlist'),
+          //             value: FilterOptions.WishList,
+          //           ),
+          //           PopupMenuItem(
+          //             child: Text('Show All'),
+          //             value: FilterOptions.All,
+          //           )
+          //         ]),
+          Consumer<Cart>(
+            builder: (_, cart, ch) => Badge(
+              value: cart.itemCount.toString(),
+              child: ch!,
+            ),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(CartScreen.routeName);
+                },
+                icon: const Icon(Icons.shopping_cart)),
+          ),
         ],
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(20),
-        itemCount: loadedBooks.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 1,
-            crossAxisSpacing: 1,
-            childAspectRatio: 1 / 2),
-        itemBuilder: (context, index) {
-          return BookItem(
-            id: loadedBooks[index].id,
-            image: loadedBooks[index].image,
-            title: loadedBooks[index].title,
-            price: loadedBooks[index].price,
-          );
-        },
-      ),
+      body: BooksGrid(_showOnlyWishlist),
     );
   }
 }
